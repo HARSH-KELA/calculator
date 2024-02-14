@@ -35,15 +35,14 @@ pipeline {
                  }
             }
         }
-  stage('Run Ansible Playbook') {
+stage('Run Ansible Playbook') {
             steps {
                 script {
-                    def ansiblePath = '/usr/local/bin/ansible-playbook' // Adjust the path as per your Ansible installation
+                    def ansiblePath = '/path/to/ansible-playbook' // Replace this with the correct path
                     sh "${ansiblePath} deploy.yml -i inventory"
                 }
             }
         }
-
 
 
     }
