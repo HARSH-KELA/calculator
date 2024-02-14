@@ -38,14 +38,8 @@ pipeline {
   stage('Run Ansible Playbook') {
             steps {
                 script {
-                    // Set the PATH environment variable to include the directory containing the ansible-playbook executable
-                    env.PATH = "/usr/local/bin:${env.PATH}"
-                    
-                    // Execute the ansible-playbook command
-                    ansiblePlaybook(
-                        playbook: 'deploy.yml',
-                        inventory: 'inventory'
-                    )
+                    def ansiblePath = '/usr/local/bin/ansible-playbook' // Adjust the path as per your Ansible installation
+                    sh "${ansiblePath} deploy.yml -i inventory"
                 }
             }
         }
