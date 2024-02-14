@@ -35,17 +35,22 @@ pipeline {
                  }
             }
         }
-
-   stage('Run Ansible Playbook') {
+  stage('Run Ansible Playbook') {
             steps {
                 script {
+                    // Set the PATH environment variable to include the directory containing the ansible-playbook executable
+                    env.PATH = "/usr/local/bin:${env.PATH}"
+                    
+                    // Execute the ansible-playbook command
                     ansiblePlaybook(
                         playbook: 'deploy.yml',
                         inventory: 'inventory'
-                     )
+                    )
                 }
             }
         }
+
+
 
     }
 }
