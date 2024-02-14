@@ -38,7 +38,7 @@ pipeline {
 stage('Run Ansible Playbook') {
             steps {
                 script {
-                    def ansiblePath = '/opt/homebrew/bin'
+                    def ansiblePath = '/opt/homebrew/bin/'
  // Replace this with the correct path
                     sh "${ansiblePath} deploy.yml -i inventory"
                 }
