@@ -1,21 +1,29 @@
----
 - name: Pull Docker Image from Docker Hub
   hosts: localhost
   tasks:
     - name: Pull Docker Image
-      docker_image:
+      ansible.builtin.docker_image:
         name: "harshkela/calculator"
         source: pull
       register: docker_pull_result
+      when: ansible_facts['os_family'] == "Debian"
 
     - name: Display Docker Pull Result
-      debug:
+      ansible.builtin.debug:
         var: docker_pull_result
-        
-    
-    #- name: Start Docker service
-      #service:
-       # name: docker
-       # state: started
-    - name: Running container
-      shell: docker run -it -d --name calculator harshkela/calculator
+
+- name: Start Docker service
+  hosts: localhost
+  tasks:
+    - name: Start Docker service on Debian
+      ansible.builtin.service:
+        name: docker
+        state: started
+      when: ansible_facts['os_family'] == "Debian"
+
+- name: Running container
+  hosts: localhost
+  tasks:
+    - name: Run Docker container
+      ansible.builtin.shell: docker run -it -d --name calculator harshkela/calculator
+      when: ansible_facts['os_family'] == "Debian"
